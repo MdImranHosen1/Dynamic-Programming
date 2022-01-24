@@ -41,7 +41,7 @@ ll lis(std::vector<ll>&v)
   {
     int j=upper_bound(all(d),v[i])-d.begin();
  
-    if(d[j-1]<v[i] && v[i]<d[i] )
+    if(d[j-1]<v[i] && v[i]<d[j] )
     {
       d[j]=v[i];
     }
