@@ -27,47 +27,62 @@ const int lim = 1048576;
 const int Inf           = (int)2e9 + 5;
 const ll  Lnf           = (ll)2e18 + 5;
 const int N             = 5e5 + 5;
-const int NN            = 1e6 + 5;
+
+
+
+ll lis(std::vector<ll>&v)
+{
+  int n=v.size();
+  std::vector<ll> d(n+1,Lnf);
+
+  d[0]=-Lnf;
+
+  for (int i = 0; i < n; ++i)
+  {
+    int j=upper_bound(all(d),v[i])-d.begin();
+ 
+    if(d[j-1]<v[i] && v[i]<d[i] )
+    {
+      d[j]=v[i];
+    }
+  }
+  ll ans=0;
+  for (int i = 0; i <=n; ++i)
+  {
+    if(d[i]<Lnf)
+    {
+      ans=i;
+    }
+  }
+  return ans;
+}
 
 int solve()
 {
   ll n;
-  cin>>n;
-  vector<int>v(n);
-  for (int i = 0; i < n; ++i)
+  cin >> n;
+  vector<ll>v;
+  for (ll i = 0; i < n; ++i)
   {
-    cin>>v[i];
+    ll x; cin >> x;
+    v.push_back(x);
   }
-  vector<int>seq;
-  seq.pb(v[0]);
+  ll y=lis(v);
 
-  for (int i = 1; i < n; ++i)
-  {
-    if(seq.back()<v[i])
-    {
-      seq.pb(v[i]);
-    }
-    else
-    {
-      int idx=lower_bound(seq.begin(),seq.end(),v[i])-seq.begin();
-      seq[idx]=v[i];
-    }
-  }
-
-  cout<<seq.size();
-
-
+  cout << y << endl;
   return 0;
 }
 
-int main(){
-  ll i,test=1;
-  cin>>test;
+int main() {
+  ll i, test = 1;
+  cin >> test;
   for (i = 0; i < test; ++i)
   {
-    solve();    
+    solve();
   }
   return 0;
 }
+
+
 
 
